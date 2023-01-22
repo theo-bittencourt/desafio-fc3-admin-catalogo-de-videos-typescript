@@ -6,3 +6,5 @@ __coverage
 node_modules/
 tsconfig.tsbuildinfo
 docker-compose.override.yaml
+.vscode
+.devcontainer
