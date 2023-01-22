@@ -1,5 +1,7 @@
 import Entity from "../../../@seedwork/domain/entity/entity";
 import UniqueEntityId from '../../../@seedwork/domain/value-objects/unique-entity-id.vo';
+import CategoryValidatorFactory from "../validators/category.validator";
+import { EntityValidationError } from "../../../@seedwork/domain/errors/validation-error";
 
 export type CategoryProperties = {
   name: string;
@@ -11,12 +13,26 @@ export type CategoryProperties = {
 export class Category extends Entity<CategoryProperties> {
   constructor(public readonly props: CategoryProperties, id?: UniqueEntityId) {
     super(props, id);
+    Category.validate(props);
     this.description = this.props.description;
     this.props.is_active = this.props.is_active ?? true;
     this.props.created_at = this.props.created_at ?? new Date();
   }
 
-  update(name: string, description: string): void{
+
+  static validate(props: CategoryProperties) {
+    const validator = CategoryValidatorFactory.create();
+    const isValid = validator.validate(props);
+    if (!isValid) {
+      throw new EntityValidationError(validator.errors);
+    }
+  }
+
+  update(name: string, description: string): void {
+    Category.validate({
+      name,
+      description,
+    });
     this.name = name;
     this.description = description;
   }
