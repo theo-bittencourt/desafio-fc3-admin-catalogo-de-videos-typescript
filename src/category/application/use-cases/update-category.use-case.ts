@@ -9,7 +9,7 @@ export default class UpdateCategoryUseCase implements UseCase<Input, Output> {
     this.repository = repository;
   }
 
-  async execute(input: Input): Promise<CategoryOutput> {
+  async execute(input: Input): Promise<Output> {
     const entity = await this.repository.findById(input.id)
 
     entity.update(input.name, input.description);
