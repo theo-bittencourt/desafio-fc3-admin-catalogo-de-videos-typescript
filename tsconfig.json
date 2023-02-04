@@ -21,16 +21,16 @@
     "outDir": "./dist",
     // Substituído pelo padrão "#seedwork" (subpath, Node >= 12)
     //
-    // "plugins": [
-    //   /* Transform paths in output .js files */
-    //   {
-    //     "transform": "typescript-transform-paths"
-    //   },
-    //   {
-    //     "transform": "typescript-transform-paths",
-    //     "afterDeclarations": ""
-    //   }
-    // ]
+    "plugins": [
+      /* Transform paths in output .js files */
+      {
+        "transform": "typescript-transform-paths"
+      },
+      {
+        "transform": "typescript-transform-paths",
+        "afterDeclarations": ""
+      }
+    ]
   },
   "include": [
     "src/"

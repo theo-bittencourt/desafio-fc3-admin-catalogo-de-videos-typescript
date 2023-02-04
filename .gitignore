@@ -8,3 +8,4 @@ tsconfig.tsbuildinfo
 docker-compose.override.yaml
 .vscode
 .devcontainer
+dist
