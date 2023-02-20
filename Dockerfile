@@ -1,4 +1,4 @@
-FROM node:14.15.4-slim
+FROM node:14.17.6-slim
 
 RUN mkdir -p /usr/share/man/man1 && \
     echo 'deb http://ftp.debian.org/debian stretch-backports main' | tee /etc/apt/sources.list.d/stretch-backports.list && \
@@ -8,10 +8,13 @@ RUN mkdir -p /usr/share/man/man1 && \
     openjdk-11-jre \
     zsh \
     curl \
-    wget
+    wget \
+    procps
 
 # Install Starship shell prompt
 RUN curl -fsSL https://starship.rs/install.sh | sh -s -- -y
+
+RUN npm install -g @nestjs/cli@8.2.8 npm@8.19.3
 
 ENV JAVA_HOME="/usr/lib/jvm/java-11-openjdk-amd64"
 
@@ -28,6 +31,7 @@ RUN sh -c "$(wget -O- https://github.com/deluan/zsh-in-docker/releases/download/
     -a 'export TERM=xterm-256color'
 
 RUN echo 'eval "$(starship init zsh)"' >> ~/.zshrc && \
-    echo 'HISTFILE=/home/node/zsh/.zsh_history' >> ~/.zshrc
+    echo 'HISTFILE=/home/node/zsh/.zsh_history' >> ~/.zshrc && \
+    echo 'source /home/node/zsh/aliases.sh' >> ~/.zshrc
 
-CMD [ "sh", "-c", "npm install && tail -f /dev/null" ]
+CMD [ "tail", "-f", "/dev/null" ]
